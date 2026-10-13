@@ -52,6 +52,9 @@ jobs:
             echo "::error::repo Settings -> Secrets and variables -> Actions."
             exit 1
           fi
+          # scans/ does not exist in a fresh checkout - it is created by this
+          # job - so it must be made before anything is written into it.
+          mkdir -p scans
           set -o pipefail
           python -m mcx_live live > scans/today.json 2> scans/today.err
           rc=$?
