@@ -70,11 +70,12 @@ cp .env.example .env      # then paste your key from agent.tinyfish.ai/api-keys
 pip install -e ".[server,dev]"
 
 python -m mcx_live wallet                                  # balance + rates
-python -m mcx_live live                                    # today: fetch, parse, bound, verdict
-python -m mcx_live circulars 01/10/2024 31/12/2024          # date-filter the MCX circular archive
+python -m mcx_live live                                     # fetch, parse, bound, verdict
+python -m mcx_live circulars 01/10/2024 31/12/2024          # the dated archive
 
-uvicorn mcx_live.server:app --reload                       # then open /health, /scan, /circulars
+uvicorn mcx_live.server:app --reload                       # /health  /scan  /circulars
 bash scripts/smoke_live.sh                                 # end-to-end, prints a table
+python scripts/build_dashboard.py                          # regenerate docs/index.html
 ```
 
 The key lives in `.env` only. `tests/test_claims.py` **fails the build** if a live key is ever
@@ -115,7 +116,7 @@ regression.
 | `tests/` | 44 tests, all offline; the claims suite guards the published evidence and the secrets |
 | `docs/TINYFISH.md` | the full plan, the gate results, and every honest limit found while building |
 | `data/mcx_circulars_oct_dec_2024.json` | the archived 204-circular Agent run, with its run id |
-| `scripts/` | `smoke_live.sh` (end-to-end), `read_circular766.sh` (the one in-window circular read via Agent) |
+| `scripts/` | `smoke_live.sh` (end-to-end), `build_dashboard.py` (regenerates the page from scans), `read_circular766.sh` (one in-window circular read via Agent) |
 
 ## Definition of done
 
