@@ -47,9 +47,19 @@ jobs:
         env:
           TINYFISH_API_KEY: ${{ secrets.TINYFISH_API_KEY }}
         run: |
+          if [ -z "$TINYFISH_API_KEY" ]; then
+            echo "::error::TINYFISH_API_KEY secret is not set. Add it in"
+            echo "::error::repo Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
           set -o pipefail
           python -m mcx_live live > scans/today.json 2> scans/today.err
+          rc=$?
           cat scans/today.err
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::the live scan failed; see scans/today.err above"
+            exit "$rc"
+          fi
           python - <<'PY'
           import json, pathlib
           d = json.load(open("scans/today.json"))
@@ -80,12 +90,16 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scans/ || true
+          # -f, because scans/ was previously gitignored and a plain `git add`
+          # silently skipped it: the workflow reported success while committing
+          # nothing. Belt and braces, since .gitignore no longer lists it.
+          git add -f scans/
           if git diff --cached --quiet; then
-            echo "no new scan to commit"
+            echo "::warning::no new scan to commit - was the date already archived?"
           else
             git commit -m "chore: daily MCX scan $(date -u +%F)"
             git push
+            echo "committed $(git show --stat --oneline HEAD | head -1)"
           fi
 
       - name: Summary

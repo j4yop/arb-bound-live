@@ -122,7 +122,28 @@ def test_the_published_dashboard_is_generated_not_hand_typed():
     )
 
 
-def test_the_sample_scan_the_dashboard_reads_is_real():
+def test_the_daily_scan_directory_is_committable():
+    """Regression: scans/ was gitignored, so the daily workflow's ``git add
+    scans/`` failed silently and it reported success while committing nothing.
+
+    The corpus is the point of the scheduled job; if it cannot be committed the
+    job is theatre.
+    """
+    import subprocess
+
+    out = subprocess.run(
+        ["git", "check-ignore", "scans/"], capture_output=True, text=True
+    )
+    assert out.returncode != 0, (
+        "scans/ is gitignored -- `git add scans/` will silently skip it and the "
+        "daily workflow will commit nothing"
+    )
+    # And the workflow must use -f, so it stays correct if that regresses.
+    daily = Path(".github/workflows/daily.yml").read_text()
+    assert "git add -f scans/" in daily, (
+        "the daily workflow should force-add scans/ so a .gitignore change "
+        "cannot silently break it"
+    )
     """The committed sample must carry the shape build_dashboard expects."""
     assert SAMPLE.exists(), "docs/data/scan-sample.json is missing"
     data = json.loads(SAMPLE.read_text())

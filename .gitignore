@@ -1,27 +1,37 @@
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
 .venv/
 venv/
-.DS_Store
 .coverage
 htmlcov/
 dist/
 build/
 
-# .env holds the TinyFish API key and must never be committed.
-# .env.example is a documented template and IS committed, so unignore it.
+# OS
+.DS_Store
+
+# --- credentials -----------------------------------------------------------
+# .env holds the TinyFish API key and must never be committed. .env.example is
+# a documented template and IS committed, so it is explicitly un-ignored.
+# opencode.json can carry the key in an MCP header, so it is ignored too.
+# tests/test_claims.py fails the build if any of these stops being ignored, or
+# if a live key is ever tracked.
 .env
 .env.local
+.env*.local
 opencode.json
 !.env.example
 
-# The server's scan cache: derived data, regenerable on demand.
-cache/
+# --- generated, but deliberately tracked -----------------------------------
+# scans/ is the corpus the daily workflow commits, and the evidence
+# scripts/build_dashboard.py renders. It is NOT ignored. Ignoring it made
+# `git add scans/` fail silently, so the workflow reported success while
+# committing nothing.
+# docs/index.html is generated and committed for GitHub Pages.
 
-# Agent-reach rule: never write into the agent workspace.
-.venv/
-scans/
+# The server's scan cache, and Vercel CLI linkage: derived, safe to ignore.
+cache/
 .vercel
-.env*
