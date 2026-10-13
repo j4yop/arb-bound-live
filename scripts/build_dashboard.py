@@ -91,21 +91,22 @@ def render(scans: list[dict], provenance: str) -> str:
     ]
 
     history = ""
-    if len(scans) > 1:
+    if len(scans) >= 1:
         hist = [
             f"<tr><td><code>{s['date']}</code></td>"
             f"<td class=\"num\">{s['rows_with_trades']}</td>"
             f"<td class=\"num\">{s['basis_observations']}</td>"
             f"<td class=\"num\">{s['verdict_summary']['pairs_tested']}</td>"
-            f"<td class=\"num\">{s['verdict_summary']['pairs_cleared']}</td></tr>"
+            f"<td class=\"num\">{s['verdict_summary']['pairs_cleared']}</td>"
+            f"<td class=\"num\">{_num(s['reference_price_inr_per_g_fine'], 0)}</td></tr>"
             for s in scans
         ]
         history = (
-            "<h2>Every committed scan</h2>"
-            "<p class=\"sub\">One row per trading day. A single day proves ingest, not "
-            "inference &mdash; this table is what can eventually settle it.</p>"
+            "<h2>Scan corpus</h2>"
+            "<p class=\"sub\">Each row is a committed daily run. A single day proves "
+            "ingest, not inference &mdash; this table is what can eventually settle it.</p>"
             "<table><thead><tr><th>Date</th><th>Rows</th><th>Basis obs</th>"
-            "<th>Pairs</th><th>Cleared</th></tr></thead><tbody>"
+            "<th>Pairs</th><th>Cleared</th><th>Reference price</th></tr></thead><tbody>"
             + "".join(hist)
             + "</tbody></table>"
         )
