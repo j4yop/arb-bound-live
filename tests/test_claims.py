@@ -19,6 +19,7 @@ from pathlib import Path
 
 DOC = Path("docs/TINYFISH.md")
 ARCHIVE = Path("data/mcx_circulars_oct_dec_2024.json")
+SAMPLE = Path("docs/data/scan-sample.json")
 SECRET_FILES = (".env", ".env.local", "opencode.json")
 
 
@@ -93,6 +94,43 @@ def test_the_engine_never_touches_the_network():
 def test_lenient_of_no_license():
     """A repo submitted to a sponsor should carry a licence."""
     assert Path("LICENSE").exists(), "LICENSE is missing"
+
+
+def test_the_published_dashboard_is_generated_not_hand_typed():
+    """The page's numbers must be reproducible from committed scans.
+
+    A hand-edited dashboard would drift the moment the market moved, and would
+    silently claim a figure no run produced. Regenerating must be a no-op.
+    """
+    import subprocess
+    import sys
+
+    out = subprocess.run(
+        [sys.executable, "scripts/build_dashboard.py"],
+        capture_output=True,
+        text=True,
+    )
+    assert out.returncode == 0, out.stderr
+    # Regenerating into the same path must not change the committed file.
+    diff = subprocess.run(
+        ["git", "diff", "--exit-code", "docs/index.html"],
+        capture_output=True,
+        text=True,
+    )
+    assert diff.returncode == 0, (
+        "docs/index.html is stale -- run scripts/build_dashboard.py and commit it"
+    )
+
+
+def test_the_sample_scan_the_dashboard_reads_is_real():
+    """The committed sample must carry the shape build_dashboard expects."""
+    assert SAMPLE.exists(), "docs/data/scan-sample.json is missing"
+    data = json.loads(SAMPLE.read_text())
+    for key in ("date", "source", "rows_with_trades", "basis_observations",
+                "reference_price_inr_per_g_fine", "verdict_summary", "verdicts"):
+        assert key in data, f"sample scan is missing {key}"
+    # And it must have come from the plane, not been written by hand.
+    assert data["source"].startswith("tinyfish-live:"), data["source"]
 
 
 # ------------------------------------------------------ credential guards
