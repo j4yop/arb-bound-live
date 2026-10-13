@@ -56,7 +56,6 @@ def create_app():
     """Build the FastAPI app. Kept separate so tests can build it without uvicorn."""
     from fastapi import FastAPI
     from fastapi.responses import JSONResponse
-
     app = FastAPI(title="arb-bound-live", version="0.1.0")
 
     @app.get("/health")
@@ -102,8 +101,16 @@ def create_app():
     return app
 
 
+# The module-level ASGI app. This is what ``uvicorn mcx_live.server:app`` and
+# Vercel's Python runtime both look for, and it is the same object the test
+# suite builds, so a local server, a deployed function and the tests cannot
+# drift apart. Building it at import time costs a few milliseconds and needs
+# FastAPI, which the ``server`` extra declares.
+app = create_app()
+
+
 def main() -> None:
-    """Serve the app. ``uvicorn mcx_live.server:app`` also works."""
+    """Serve the app. ``uvicorn mcx_live.server:app`` is the shorter form."""
     try:
         import uvicorn
     except ImportError:  # pragma: no cover - optional runtime dep

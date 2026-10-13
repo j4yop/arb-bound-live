@@ -47,6 +47,21 @@ def _payload():
     ]
 
 
+def test_the_module_level_app_exists_for_uvicorn():
+    """Regression: every instruction in the README says
+    ``uvicorn mcx_live.server:app``, and that silently failed because ``server``
+    exposed only a factory. An ASGI app must be importable by that path.
+    """
+    from mcx_live import server
+
+    assert hasattr(server, "app"), "no module-level 'app'; uvicorn cannot start"
+    # It must be the same object the tests build, not a second one.
+    assert server.app is not None
+    routes = {r.path for r in server.app.routes}
+    for path in ("/health", "/scan", "/scan/cached", "/circulars"):
+        assert path in routes, f"module-level app is missing {path}"
+
+
 def test_health_needs_no_key(client):
     r = client.get("/health")
     assert r.status_code == 200
