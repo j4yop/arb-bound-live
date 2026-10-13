@@ -1,0 +1,100 @@
+name: Daily MCX scan
+
+# Ingest today's bhavcopy through TinyFish and commit the result.
+#
+# Why this exists: the repo's claim is that the verdict comes from live data,
+# so a single run proves nothing and a series proves a lot. One commit per
+# trading day builds the corpus that turns "we fetched it once" into "it has
+# been running".
+#
+# Cost: the bhavcopy fetch uses TinyFish *Fetch*, which is free ($0.000/url).
+# The archive Agent run is metered ($0.016/step) and is NOT scheduled.
+
+on:
+  schedule:
+    # ~06:15 UTC, after the MCX close and after the day's file is published.
+    - cron: "15 6 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Re-run even if a scan for today already exists"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: pip install -e .
+
+      - name: Scan today
+        id: scan
+        env:
+          TINYFISH_API_KEY: ${{ secrets.TINYFISH_API_KEY }}
+        run: |
+          set -o pipefail
+          python -m mcx_live live > scans/today.json 2> scans/today.err
+          cat scans/today.err
+          python - <<'PY'
+          import json, pathlib
+          d = json.load(open("scans/today.json"))
+          line = d["summary_line"]
+          (pathlib.Path("scans")/f"{d['date']}.json").write_text(
+              json.dumps(d, indent=1, default=str))
+          print(line)
+          print("pairs:", json.dumps(d["verdict_summary"]))
+          PY
+
+      - name: Publish the verdict
+        env:
+          TINYFISH_API_KEY: ${{ secrets.TINYFISH_API_KEY }}
+        run: |
+          mkdir -p scans
+          # A one-day result is not a persistent edge, and the corpus says so by
+          # growing. Keep the running index so a reader sees the history.
+          python - <<'PY'
+          import json, pathlib, subprocess
+          scan_dir = pathlib.Path("scans")
+          days = sorted(p.stem for p in scan_dir.glob("2*.json"))
+          (scan_dir / "index.json").write_text(
+              json.dumps({"days": days, "count": len(days)}, indent=1))
+          print(f"{len(days)} archived trading days")
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scans/ || true
+          if git diff --cached --quiet; then
+            echo "no new scan to commit"
+          else
+            git commit -m "chore: daily MCX scan $(date -u +%F)"
+            git push
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Daily MCX scan"
+            echo ""
+            echo '```'
+            tail -5 scans/today.err 2>/dev/null || echo "(no run log)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

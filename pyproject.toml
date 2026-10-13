@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arb-bound-live"
+version = "0.1.0"
+description = "Live MCX gold data through TinyFish, judged against a structural arbitrage bound"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["pandas>=2.0"]
+
+[project.optional-dependencies]
+server = ["fastapi>=0.110", "uvicorn>=0.29"]
+dev = ["pytest>=8", "pytest-cov>=4"]
+
+[project.scripts]
+mcx-live = "mcx_live.cli:main"
+
+[tool.setuptools]
+packages = ["mcx_live"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Council Verdict — TinyFish Builder Challenge Project</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2a3241;
+    --ink:#e6edf3; --muted:#8b98a9; --gold:#e3b341; --good:#3fb950; --warn:#d29922; --bad:#f85149;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:light){
+    :root{--bg:#ffffff;--panel:#f6f8fa;--panel2:#eef1f5;--line:#d8dee4;--ink:#1f2328;--muted:#59636e;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:960px;margin:0 auto;padding:56px 24px 96px}
+  header{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:36px}
+  .kicker{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  h1{font-size:34px;line-height:1.2;margin:12px 0 8px;font-weight:700}
+  .sub{color:var(--muted);font-size:15px}
+  h2{font-size:21px;margin:44px 0 14px;font-weight:650}
+  .verdict{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--line);
+           border-left:4px solid var(--gold);border-radius:10px;padding:22px 24px;margin:24px 0 8px}
+  .verdict .big{font-size:19px;font-weight:650;line-height:1.45;margin-bottom:10px}
+  .verdict p{margin:0;color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:16px 18px}
+  .card h3{margin:0 0 8px;font-size:14px;font-weight:650;letter-spacing:.02em}
+  .card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .tally{display:inline-block;font:600 11px/1 var(--mono);color:var(--good);margin-bottom:8px;
+         letter-spacing:.08em}
+  ul.tight{margin:8px 0 0;padding-left:20px}
+  ul.tight li{margin:7px 0;font-size:14px}
+  .tag{display:inline-block;font:600 10px/1 var(--mono);padding:4px 7px;border-radius:4px;
+       letter-spacing:.08em;text-transform:uppercase;margin-right:6px;vertical-align:2px}
+  .tag.good{background:rgba(63,185,80,.14);color:var(--good)}
+  .tag.warn{background:rgba(210,153,34,.16);color:var(--warn)}
+  .tag.bad{background:rgba(248,81,73,.14);color:var(--bad)}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin:10px 0}
+  details summary{cursor:pointer;padding:13px 16px;font-weight:600;font-size:14.5px;
+                  display:flex;justify-content:space-between;align-items:center;gap:10px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--gold);font:600 16px/1 var(--mono)}
+  details[open] summary::after{content:"\2212"}
+  details .body{padding:0 18px 18px;border-top:1px solid var(--line);margin-top:0}
+  blockquote{margin:10px 0;padding:2px 0 2px 14px;border-left:3px solid var(--line);color:var(--muted);
+             font-size:14px}
+  .phase{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border-bottom:none}
+  .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--gold);color:#0d1117;
+       font:700 13px/30px var(--mono);text-align:center}
+  .phase h4{margin:2px 0 4px;font-size:14.5px}
+  .phase p{margin:0;font-size:13.5px;color:var(--muted)}
+  code{font:12.5px/1.5 var(--mono);background:var(--panel2);padding:2px 6px;border-radius:4px}
+  .sources{font-size:13px;color:var(--muted);columns:2;column-gap:28px}
+  .sources div{break-inside:avoid;margin:5px 0}
+  a{color:var(--gold)}
+  .rule{height:1px;background:var(--line);margin:36px 0}
+  .quote{font-size:15px;font-style:italic;color:var(--ink);border-left:3px solid var(--gold);
+         padding-left:16px;margin:16px 0}
+  @media(max-width:640px){.sources{columns:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">LLM Council &middot; Hack in Hills '26 &middot; Track 03</div>
+  <h1>Council Verdict: the TinyFish Builder Challenge project</h1>
+  <div class="sub">5 advisors &middot; 3 anonymous peer reviewers &middot; convened 12 Oct 2026</div>
+</header>
+
+<div class="verdict">
+  <div class="big">Complete the challenge compliance package in the first hour — it <em>is</em> the graded artifact.
+  Then build a TinyFish-backed live-data plane for <code>arb-bound</code>, but only after a free,
+  30-minute gate.</div>
+  <p>The rubric scores a first successful run, a dashboard screenshot, two social posts and a form — not
+  your code. So the plan is deliberately inverted: bank the package in hour one at zero risk, and make
+  the project contingent and gated rather than load-bearing.</p>
+</div>
+
+<div class="quote">Never make an unverified vendor capability the thing your demo stands on.
+TinyFish's marketing says its stealth defeats Cloudflare/DataDome. Nobody — including us — has
+verified it against <code>mcxindia.com</code>, which is Akamai-protected and which we already know
+returns <strong>HTTP 403 to datacenter IPs</strong>. That is a hypothesis with a test, not a premise.</div>
+
+<h2>Consensus matrix</h2>
+
+<div class="grid">
+  <div class="card">
+    <div class="tally">5 / 5 AGREED</div>
+    <h3>The graded artifact is the submission package</h3>
+    <p>All five advisors converged independently: the rubric touches a first successful run, a
+    dashboard screenshot, an X post, a LinkedIn post and the Google Form. Code is invisible to it.</p>
+  </div>
+  <div class="card">
+    <div class="tally">5 / 5 AGREED</div>
+    <h3>No vendor claim may be load-bearing until tested</h3>
+    <p>TinyFish's stealth capability against MCX's Akamai protection is unverified. Test it cheaply,
+    before committing build hours.</p>
+  </div>
+  <div class="card">
+    <div class="tally">4 / 5 AGREED</div>
+    <h3>Search and Fetch are commodity; Agent and Monitor are the edge</h3>
+    <p>Fetch is mechanically another read-proxy — Jay already solved his access problem with
+    <code>r.jina.ai</code>. Only Monitor adds a capability the engine structurally lacks: time.</p>
+  </div>
+  <div class="card">
+    <div class="tally">3 / 5 AGREED</div>
+    <h3>The compliance package must be banked first</h3>
+    <p>A ~30-minute, ~99%-reliable step that satisfies the entire rubric should never be gambled
+    behind a build.</p>
+  </div>
+</div>
+
+<h2>Contested points</h2>
+<div class="grid">
+  <div class="card">
+    <span class="tag warn">CONTESTED</span>
+    <h3>Candidate A vs Candidate B</h3>
+    <p><strong>Contrarian + First Principles</strong> call A proxy substitution cosplaying as innovation and put
+    Monitor at the core. <strong>Expansionist + Outsider</strong> say A, reframed around the block, is the
+    maximum leverage.<br><br>
+    <em>Resolution:</em> both are right about different things. B is the more <strong>durable</strong>
+    capability; A is the more <strong>legible</strong> story. Build A's plumbing, make B its payload, gate both.</p>
+  </div>
+  <div class="card">
+    <span class="tag warn">CONTESTED</span>
+    <h3>E as floor vs E as waste</h3>
+    <p><strong>First Principles</strong> calls minimal compliance empty — it wastes the $8 and teaches nothing.
+    <strong>Executor + Contrarian</strong> call it insurance.<br><br>
+    <em>Resolution:</em> the Executor wins on expected value. E costs 30 minutes and removes all downside;
+    the philosophical objection costs real points if the screenshot never lands.</p>
+  </div>
+</div>
+
+<h2>Blind spots caught in peer review</h2>
+<div class="grid">
+  <div class="card">
+    <span class="tag bad">MISSED BY ALL 5</span>
+    <h3>Optics and terms-of-service exposure</h3>
+    <p>Nobody priced what it means for a <em>sponsor's own judges</em> to hear a pitch about circumventing a
+    regulated exchange's bot defence. The 403 is a great story about the problem and a poor story if framed
+    as the achievement.</p>
+  </div>
+  <div class="card">
+    <span class="tag bad">MISSED BY ALL 5</span>
+    <h3>Packaging budget</h3>
+    <p>Not one advisor allocated an hour, a capture plan or a narrative to the screenshot, the post copy and
+    the form — the cheapest points on the board, at zero vendor risk. Now it is Phase 0.</p>
+  </div>
+  <div class="card">
+    <span class="tag bad">MISSED BY ALL 5</span>
+    <h3>Artifact unverifiability</h3>
+    <p>A green fetch test on a bhavcopy proves nothing about the circular <em>archive</em>, which was the thing
+    never reached. Hence four separate gate checks, each with its own pass criterion.</p>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<h2>The recommended plan</h2>
+
+<div class="phase"><div class="num">0</div><div>
+  <h4>Compliance package &mdash; 60 min &middot; zero risk &middot; free</h4>
+  <p>Referral signup &rarr; API key &rarr; connect to an AI assistant &rarr; one real run to completion &rarr;
+  dashboard screenshot &rarr; follow both X accounts &rarr; post on X &rarr; post on LinkedIn &rarr;
+  submit the form once. This <em>is</em> the graded artifact.</p>
+</div></div>
+
+<div class="phase"><div class="num">1</div><div>
+  <h4>The gate &mdash; 30–45 min &middot; free</h4>
+  <p>Four checks, all using Fetch rather than Agent so they cost nothing: <code>G1</code> a live MCX bhavcopy
+  URL; <code>G2</code> a specific MCX circular PDF; <code>G3</code> the MCX circular <em>archive listing</em>;
+  <code>G4</code> an Agent run against the archive returning JSON matching <code>output_schema</code>.</p>
+</div></div>
+
+<div class="phase"><div class="num">2</div><div>
+  <h4>Scope to green &mdash; 5 min</h4>
+  <p>G1–G4 pass &rarr; build the full plane including the Monitor. G1–G2 pass, G3–G4 fail &rarr; scope to
+  bhavcopy-only live ingestion plus a Search-based circular lookup. All fail &rarr; keep the compliance package
+  and <strong>publish the MCX negative result</strong>, which is exactly what <code>arb-bound</code> already does
+  when a hypothesis fails.</p>
+</div></div>
+
+<div class="phase"><div class="num">3</div><div>
+  <h4>Build &mdash; 2–3 h &middot; only if gated green</h4>
+  <p>A thin plane that feeds the <strong>unchanged</strong> engine. The engineering invariant that makes this safe to
+  attach to a finished project: zero new domain logic, so all 73 existing tests still apply and a web-layer
+  failure degrades the project to exactly what it is today.</p>
+</div></div>
+
+<div class="phase"><div class="num">4</div><div>
+  <h4>Package the story &mdash; 30 min</h4>
+  <p>Screenshot, an X post, a LinkedIn post, and a README section stating the gate results honestly —
+  including which check failed, if any did. Lead with <em>live data &rarr; real engine &rarr; real verdict</em>,
+  not "we beat Akamai." MCX is the arena; it is not the pitch.</p>
+</div></div>
+
+<div class="rule"></div>
+
+<h2>The immediate next step</h2>
+<div class="verdict">
+  <div class="big">Click the official HIH referral link, create the TinyFish account, create the API key,
+  and store it in <code>arb-bound/.env</code>.</div>
+  <p>That single step unlocks Phase 0, Phase 1 and every decision after it — and it is the only step that
+  cannot be done for you.</p>
+</div>
+
+<div class="rule"></div>
+
+<h2>Advisors, in their own words</h2>
+
+<details><summary><span>A · The Contrarian / Red Team</span></summary>
+<div class="body"><p><strong>Verdict: do E, plus a budget-gated spike. Never let an unverified vendor claim be load-bearing on demo day.</strong></p>
+<p>The graded artifact is the first run, the screenshot, the posts and the form. A bets the whole demo on a
+marketing claim you never validated — if MCX 403s the agent, the demo collapses on the one thing you
+advertised, and $8 of agent steps burn retrying. B monitors a door you have never opened. C is derivative
+and fragile. The move: bank E, then run one capped spike.</p></div></details>
+
+<details><summary><span>B · The First Principles Thinker</span></summary>
+<div class="body"><p><strong>The premise is a just-so story; only Monitor adds capability.</strong></p>
+<blockquote>“Value comes from removing a real constraint. Jay's constraint — MCX 403/Akamai — is real.
+But TinyFish Fetch/Browser is, mechanically, another read-proxy. He already solved this with r.jina.ai.
+Swapping proxies is vendor substitution, not new capability.”</blockquote>
+<p>TinyFish's differentiated primitives are exactly two: Agent and Monitor. Only Monitor produces signal
+arb-bound structurally cannot have — temporal data, contract-spec changes over time. The irreducible core
+is one Monitor wired to circulars, emitting one field into the engine, plus one real first run.</p></div></details>
+
+<details><summary><span>C · The Expansionist / Strategist</span></summary>
+<div class="body"><p><strong>A, reframed as a capability proof — claim a position, not a submission.</strong></p>
+<blockquote>“What nobody in TinyFish's community has shown is the thing TinyFish's enterprise future
+depends on: stealth Fetch defeating Akamai-class bot defence on a real, regulated, high-value source.
+Jay's 403 is not an obstacle — it's the demo.”</blockquote>
+<p>TinyFish's own GTM needs this artifact, and it is what they publish “under your name.” Funnel into the
+Student Program → Bounty Board → Ambassador → accelerator Golden Ticket. The ingestion layer becomes the
+substrate for B — a data plane, not a one-off. Everyone else is optimising a form submission.</p></div></details>
+
+<details><summary><span>D · The Outsider / Domain Skeptic</span></summary>
+<div class="body"><p><strong>The 15-second test: gold arbitrage fails. “The website blocked me” wins.</strong></p>
+<blockquote>“Say 'arb-bound' out loud to a stranger. Then GOLDGUINEA / GOLDM / GOLDPETAL / GOLDTEN. They are
+gone. That is a resume, not a pitch.”</blockquote>
+<p>Buried in the dossier is the one thing a stranger instantly gets: the site banned robots. That pain is
+the product; the arbitrage is the excuse. A is the right raw material, mis-sold. Keep MCX as the arena,
+not the story.</p></div></details>
+
+<details><summary><span>E · The Executor / Pragmatic Engineer</span></summary>
+<div class="body"><p><strong>Ship E as insurance, then gate everything on one Fetch call.</strong></p>
+<p>The make-or-break is a 30-minute test, not a project. E: 30 minutes, ~99% reliable, guarantees the
+challenge is satisfied no matter what. Then the A-gate: <em>use Fetch, not Agent — $8 is only ~500 agent
+steps</em>. Then build A if green (TTFWD ≈ 2 h, ~70% live-demo probability) else B (≈ 3 h, ~85%).</p>
+<p><strong>Failure points named:</strong> the bhavcopy is a zip/CSV and not HTML, so Fetch may need to be
+Browser/Playwright; the circular archive may stay walled; do not fan out agents and blow the budget.</p></div></details>
+
+<div class="rule"></div>
+
+<h2>Research sources consulted</h2>
+<div class="sources">
+<div>docs.tinyfish.ai — Agent, Fetch, Search, Browser, Monitor, MCP, CLI, Plugins, Common Patterns, Anti-Bot Guide, FAQ</div>
+<div>tinyfish.ai · tinyfish.hackinhills.com · agent.tinyfish.ai/examples</div>
+<div>github.com/tinyfish-io/tinyfish-cookbook — ~30 examples read</div>
+<div>github.com/JabrielHo/TinyFish-Hackathon-BigFish — community submission</div>
+<div>github.com/tinyfish-io/tinyfish-mcp-server · bigset-oss · web-agent-integrations</div>
+<div>TinyFish Student Program &amp; Ambassador Program blog posts</div>
+<div>YouTube survey via yt-dlp — 12+ official TinyFish videos</div>
+<div>The Metaverse Guy — TinyFish vs Playwright / Firecrawl / BrowserBase</div>
+<div>Daniel · Tech &amp; Data — hands-on TinyFish review</div>
+<div>testingcatalog — coverage of the community programs</div>
+</div>
+
+<div class="rule"></div>
+<p style="color:var(--muted);font-size:13px">Full deliberation transcript:
+<code>docs/council-transcript-20261012T200855Z.md</code> &middot; Project plan:
+<code>docs/TINYFISH.md</code> — both in the <code>arb-bound</code> repository.</p>
+
+</div>
+</body>
+</html>

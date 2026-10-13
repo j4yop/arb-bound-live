@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.DS_Store
+.coverage
+htmlcov/
+dist/
+build/
+
+# .env holds the TinyFish API key and must never be committed.
+# .env.example is a documented template and IS committed, so unignore it.
+.env
+.env.local
+opencode.json
+!.env.example
+
+# The server's scan cache: derived data, regenerable on demand.
+cache/
+
+# Agent-reach rule: never write into the agent workspace.
+.venv/
+scans/

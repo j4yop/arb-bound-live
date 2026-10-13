@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      # The offline suites must not touch the network or need a key, so they run
+      # with no TINYFISH_API_KEY. A test that starts needing one is a bug.
+      - name: Install
+        run: pip install -e ".[server,dev]"
+
+      - name: Tests
+        run: pytest
+
+      - name: Coverage
+        run: pytest --cov=mcx_live --cov-report=term-missing --cov-fail-under=70
+
+      - name: No live key in the tracked tree
+        run: |
+          python - <<'PY'
+          import re, subprocess, sys
+          from pathlib import Path
+          pat = re.compile(rb"sk-tinyfish-[A-Za-z0-9_-]{20,}")
+          tracked = subprocess.run(["git","ls-files"],capture_output=True,text=True).stdout.split()
+          leaked = [r for r in tracked if Path(r).is_file() and pat.search(Path(r).read_bytes())]
+          if leaked:
+              print("committed live key in:", leaked); sys.exit(1)
+          print("no live key tracked")
+          PY
+
+      - name: The engine never imports the network
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import mcx_live
+          root = Path(mcx_live.__file__).parent
+          bad = [p.name for p in sorted(root.glob("*.py"))
+                 if p.name != "plane.py" and ("urllib" in p.read_text())]
+          assert not bad, f"network access outside plane.py: {bad}"
+          print("only plane.py touches the network")
+          PY
