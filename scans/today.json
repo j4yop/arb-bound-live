@@ -1,16 +1,16 @@
 {
  "source": "tinyfish-live:https://www.mcxindia.com/market-data/bhavcopy",
- "date": "2026-10-23",
+ "date": "2026-10-26",
  "rows": 24,
  "rows_with_trades": 24,
- "reference_price_inr_per_g_fine": 14495.25,
+ "reference_price_inr_per_g_fine": 14600.65,
  "basis_observations": 36,
  "pairs": [
   {
    "pair": "GOLDGUINEA/GOLDM",
    "bound_bps": [
     9.6,
-    474.8
+    474.7
    ],
    "centre_bps": 242.2
   },
@@ -25,26 +25,26 @@
   {
    "pair": "GOLDPETAL/GOLDGUINEA",
    "bound_bps": [
-    20.1,
-    106.2
+    20.0,
+    106.0
    ],
-   "centre_bps": 63.1
+   "centre_bps": 63.0
   },
   {
    "pair": "GOLDPETAL/GOLDM",
    "bound_bps": [
-    21.7,
-    511.0
+    21.6,
+    510.7
    ],
-   "centre_bps": 266.3
+   "centre_bps": 266.1
   },
   {
    "pair": "GOLDPETAL/GOLDTEN",
    "bound_bps": [
-    20.4,
-    107.3
+    20.3,
+    107.0
    ],
-   "centre_bps": 63.8
+   "centre_bps": 63.7
   },
   {
    "pair": "GOLDTEN/GOLDM",
@@ -63,21 +63,21 @@
   {
    "pair": "GOLDGUINEA/GOLDM",
    "observations": 6,
-   "median_basis_bps": 23.7,
+   "median_basis_bps": 21.4,
    "bound_low_bps": 9.6,
-   "bound_high_bps": 474.8,
+   "bound_high_bps": 474.7,
    "bound_centre_bps": 242.2,
    "fabrication_bps": 3.2,
    "purity_wedge_bps": 200.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
-   "days_below_bound": 1,
+   "days_below_bound": 2,
    "cleared": false
   },
   {
    "pair": "GOLDGUINEA/GOLDTEN",
    "observations": 6,
-   "median_basis_bps": 35.6,
+   "median_basis_bps": 31.8,
    "bound_low_bps": 8.3,
    "bound_high_bps": 71.0,
    "bound_centre_bps": 39.7,
@@ -85,17 +85,17 @@
    "purity_wedge_bps": 0.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
-   "days_below_bound": 0,
+   "days_below_bound": 1,
    "cleared": false
   },
   {
    "pair": "GOLDPETAL/GOLDGUINEA",
    "observations": 6,
-   "median_basis_bps": -8.1,
-   "bound_low_bps": 20.1,
-   "bound_high_bps": 106.2,
-   "bound_centre_bps": 63.1,
-   "fabrication_bps": 24.1,
+   "median_basis_bps": -10.1,
+   "bound_low_bps": 20.0,
+   "bound_high_bps": 106.0,
+   "bound_centre_bps": 63.0,
+   "fabrication_bps": 24.0,
    "purity_wedge_bps": 0.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
@@ -105,11 +105,11 @@
   {
    "pair": "GOLDPETAL/GOLDM",
    "observations": 6,
-   "median_basis_bps": -31.0,
-   "bound_low_bps": 21.7,
-   "bound_high_bps": 511.0,
-   "bound_centre_bps": 266.3,
-   "fabrication_bps": 27.3,
+   "median_basis_bps": -29.8,
+   "bound_low_bps": 21.6,
+   "bound_high_bps": 510.7,
+   "bound_centre_bps": 266.1,
+   "fabrication_bps": 27.1,
    "purity_wedge_bps": 200.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
@@ -119,11 +119,11 @@
   {
    "pair": "GOLDPETAL/GOLDTEN",
    "observations": 6,
-   "median_basis_bps": 42.3,
-   "bound_low_bps": 20.4,
-   "bound_high_bps": 107.3,
-   "bound_centre_bps": 63.8,
-   "fabrication_bps": 24.8,
+   "median_basis_bps": 44.8,
+   "bound_low_bps": 20.3,
+   "bound_high_bps": 107.0,
+   "bound_centre_bps": 63.7,
+   "fabrication_bps": 24.7,
    "purity_wedge_bps": 0.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
@@ -133,7 +133,7 @@
   {
    "pair": "GOLDTEN/GOLDM",
    "observations": 6,
-   "median_basis_bps": 12.1,
+   "median_basis_bps": 13.4,
    "bound_low_bps": 9.2,
    "bound_high_bps": 473.7,
    "bound_centre_bps": 241.5,
@@ -141,9 +141,9 @@
    "purity_wedge_bps": 200.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
-   "days_below_bound": 1,
+   "days_below_bound": 2,
    "cleared": false
   }
  ],
- "summary_line": "2026-10-23: 6 pairs tested, 0 cleared the bound"
+ "summary_line": "2026-10-26: 6 pairs tested, 0 cleared the bound"
 }
