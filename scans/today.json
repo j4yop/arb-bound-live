@@ -1,56 +1,56 @@
 {
  "source": "tinyfish-live:https://www.mcxindia.com/market-data/bhavcopy",
- "date": "2026-10-29",
+ "date": "2026-10-30",
  "rows": 24,
  "rows_with_trades": 24,
- "reference_price_inr_per_g_fine": 14567.35,
+ "reference_price_inr_per_g_fine": 14170.32,
  "basis_observations": 36,
  "pairs": [
   {
    "pair": "GOLDGUINEA/GOLDM",
    "bound_bps": [
     9.6,
-    474.7
+    474.9
    ],
    "centre_bps": 242.2
   },
   {
    "pair": "GOLDGUINEA/GOLDTEN",
    "bound_bps": [
-    8.3,
-    71.0
+    8.4,
+    71.1
    ],
    "centre_bps": 39.7
   },
   {
    "pair": "GOLDPETAL/GOLDGUINEA",
    "bound_bps": [
-    20.0,
-    106.0
-   ],
-   "centre_bps": 63.0
-  },
-  {
-   "pair": "GOLDPETAL/GOLDM",
-   "bound_bps": [
-    21.6,
-    510.8
-   ],
-   "centre_bps": 266.2
-  },
-  {
-   "pair": "GOLDPETAL/GOLDTEN",
-   "bound_bps": [
-    20.4,
-    107.1
+    20.3,
+    107.0
    ],
    "centre_bps": 63.7
   },
   {
+   "pair": "GOLDPETAL/GOLDM",
+   "bound_bps": [
+    22.0,
+    511.9
+   ],
+   "centre_bps": 266.9
+  },
+  {
+   "pair": "GOLDPETAL/GOLDTEN",
+   "bound_bps": [
+    20.7,
+    108.1
+   ],
+   "centre_bps": 64.4
+  },
+  {
    "pair": "GOLDTEN/GOLDM",
    "bound_bps": [
-    9.2,
-    473.7
+    9.3,
+    473.8
    ],
    "centre_bps": 241.5
   }
@@ -63,39 +63,39 @@
   {
    "pair": "GOLDGUINEA/GOLDM",
    "observations": 6,
-   "median_basis_bps": 27.3,
+   "median_basis_bps": 36.7,
    "bound_low_bps": 9.6,
-   "bound_high_bps": 474.7,
+   "bound_high_bps": 474.9,
    "bound_centre_bps": 242.2,
    "fabrication_bps": 3.2,
    "purity_wedge_bps": 200.0,
+   "friction_bps": 39.0,
+   "days_above_bound": 0,
+   "days_below_bound": 0,
+   "cleared": false
+  },
+  {
+   "pair": "GOLDGUINEA/GOLDTEN",
+   "observations": 6,
+   "median_basis_bps": 41.7,
+   "bound_low_bps": 8.4,
+   "bound_high_bps": 71.1,
+   "bound_centre_bps": 39.7,
+   "fabrication_bps": 0.7,
+   "purity_wedge_bps": 0.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
    "days_below_bound": 1,
    "cleared": false
   },
   {
-   "pair": "GOLDGUINEA/GOLDTEN",
-   "observations": 6,
-   "median_basis_bps": 25.9,
-   "bound_low_bps": 8.3,
-   "bound_high_bps": 71.0,
-   "bound_centre_bps": 39.7,
-   "fabrication_bps": 0.7,
-   "purity_wedge_bps": 0.0,
-   "friction_bps": 39.0,
-   "days_above_bound": 0,
-   "days_below_bound": 2,
-   "cleared": false
-  },
-  {
    "pair": "GOLDPETAL/GOLDGUINEA",
    "observations": 6,
-   "median_basis_bps": -7.9,
-   "bound_low_bps": 20.0,
-   "bound_high_bps": 106.0,
-   "bound_centre_bps": 63.0,
-   "fabrication_bps": 24.0,
+   "median_basis_bps": 7.9,
+   "bound_low_bps": 20.3,
+   "bound_high_bps": 107.0,
+   "bound_centre_bps": 63.7,
+   "fabrication_bps": 24.7,
    "purity_wedge_bps": 0.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
@@ -105,11 +105,11 @@
   {
    "pair": "GOLDPETAL/GOLDM",
    "observations": 6,
-   "median_basis_bps": -30.4,
-   "bound_low_bps": 21.6,
-   "bound_high_bps": 510.8,
-   "bound_centre_bps": 266.2,
-   "fabrication_bps": 27.2,
+   "median_basis_bps": -30.9,
+   "bound_low_bps": 22.0,
+   "bound_high_bps": 511.9,
+   "bound_centre_bps": 266.9,
+   "fabrication_bps": 27.9,
    "purity_wedge_bps": 200.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
@@ -119,11 +119,11 @@
   {
    "pair": "GOLDPETAL/GOLDTEN",
    "observations": 6,
-   "median_basis_bps": 33.1,
-   "bound_low_bps": 20.4,
-   "bound_high_bps": 107.1,
-   "bound_centre_bps": 63.7,
-   "fabrication_bps": 24.7,
+   "median_basis_bps": 31.5,
+   "bound_low_bps": 20.7,
+   "bound_high_bps": 108.1,
+   "bound_centre_bps": 64.4,
+   "fabrication_bps": 25.4,
    "purity_wedge_bps": 0.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
@@ -133,17 +133,17 @@
   {
    "pair": "GOLDTEN/GOLDM",
    "observations": 6,
-   "median_basis_bps": 5.2,
-   "bound_low_bps": 9.2,
-   "bound_high_bps": 473.7,
+   "median_basis_bps": 3.5,
+   "bound_low_bps": 9.3,
+   "bound_high_bps": 473.8,
    "bound_centre_bps": 241.5,
    "fabrication_bps": 2.5,
    "purity_wedge_bps": 200.0,
    "friction_bps": 39.0,
    "days_above_bound": 0,
-   "days_below_bound": 4,
+   "days_below_bound": 5,
    "cleared": false
   }
  ],
- "summary_line": "2026-10-29: 6 pairs tested, 0 cleared the bound"
+ "summary_line": "2026-10-30: 6 pairs tested, 0 cleared the bound"
 }
